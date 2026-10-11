@@ -1,0 +1,24 @@
+ACEest Fitness & Gym — local verification report
+Date: 2026-10-11
+
+[PASS] Python syntax compilation
+Command: python -m compileall -q app.py services.py tests
+Exit code: 0
+
+[PASS] Pure business-rule unit tests
+Command: python -m pytest -q tests/test_services.py
+..................                                                       [100%]
+18 passed in 0.03s
+Exit code: 0
+
+[PASS] Jinja template smoke render
+The project template was rendered using Jinja2 with four programme definitions and an empty client list; key dashboard labels and form action were verified.
+
+[NOT RUN] Flask route integration tests
+The complete suite in tests/test_app.py requires Flask. Flask is not installed in this isolated environment and package downloads failed because outbound DNS/network access is unavailable. Run `python -m pip install -r requirements.txt -r requirements-dev.txt` followed by `python -m pytest -q` on a connected development machine or in CI.
+
+[NOT RUN] Docker runtime/test image builds
+The Docker CLI/daemon is not installed in this environment. Run `docker build --target runtime -t aceest-fitness:latest .` and `docker build --target test -t aceest-fitness-test:latest .` on a machine with Docker.
+
+[NOT RUN] GitHub Actions and Jenkins remote pipelines
+These require a push to the student's GitHub repository and a configured Jenkins agent. No remote run is claimed by this report.
