@@ -10,6 +10,8 @@ from flask import Flask, flash, g, jsonify, redirect, render_template, request, 
 
 from services import PROGRAMS, calculate_estimated_calories, validate_client_data
 
+APP_VERSION = os.environ.get("APP_VERSION", "1.0.0")
+
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS clients (
@@ -136,7 +138,19 @@ def create_app(test_config: dict[str, Any] | None = None) -> Flask:
 
     @app.get("/healthz")
     def healthz():
-        return jsonify(status="ok", service="aceest-fitness")
+        return jsonify(
+            status="ok",
+            service="aceest-fitness",
+            version=APP_VERSION
+        )
+
+    @app.get("/version")
+    def version():
+        return jsonify(
+            application="ACEest Fitness & Gym",
+            version=APP_VERSION,
+            status="running"
+        )
 
     return app
 
