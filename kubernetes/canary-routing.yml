@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: aceest-fitness-canary
+  namespace: aceest-fitness
+spec:
+  hosts:
+    - aceest-fitness
+  gateways:
+    - aceest-fitness-gateway
+  http:
+    - route:
+        - destination:
+            host: aceest-fitness-stable
+            port:
+              number: 5000
+          weight: 90
+        - destination:
+            host: aceest-fitness-canary
+            port:
+              number: 5000
+          weight: 10
