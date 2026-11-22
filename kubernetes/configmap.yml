@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aceest-fitness-config
+  namespace: aceest-fitness
+data:
+  APP_VERSION: "1.0.0"
+  PORT: "5000"
+  DATABASE_PATH: "/app/instance/aceest_fitness.db"
