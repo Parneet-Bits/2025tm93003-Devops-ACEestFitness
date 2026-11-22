@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: aceest-fitness-shadow
+  namespace: aceest-fitness
+spec:
+  hosts:
+    - aceest-fitness
+  gateways:
+    - aceest-fitness-gateway
+  http:
+    - route:
+        - destination:
+            host: aceest-fitness-stable
+            port:
+              number: 5000
+          weight: 100
+      mirror:
+        host: aceest-fitness-shadow
+        port:
+          number: 5000
+      mirrorPercentage:
+        value: 100.0
