@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: aceest-fitness-ab-testing
+  namespace: aceest-fitness
+spec:
+  hosts:
+    - aceest-fitness
+  gateways:
+    - aceest-fitness-gateway
+  http:
+    - match:
+        - headers:
+            x-user-group:
+              exact: A
+      route:
+        - destination:
+            host: aceest-fitness-stable
+            port:
+              number: 5000
+          weight: 100
+
+    - match:
+        - headers:
+            x-user-group:
+              exact: B
+      route:
+        - destination:
+            host: aceest-fitness-canary
+            port:
+              number: 5000
+          weight: 100
+
+    - route:
+        - destination:
+            host: aceest-fitness-stable
+            port:
+              number: 5000
+          weight: 100
